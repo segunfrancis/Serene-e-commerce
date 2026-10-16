@@ -96,13 +96,13 @@ fun ThemePreview() {
                     SereneProductCard(
                         title = "Organic Linen Cushion",
                         category = "Home Decor",
+                        subCategory = "Skincare",
+                        keywords = listOf("moisturizer", "hydration", "skincare", "beauty"),
                         price = "$45.00",
                         rating = 4.5f,
                         reviewCount = 124,
-                        imageUrl = null,
-                        keywords = listOf("moisturizer", "hydration", "skincare", "beauty"),
-                        subCategory = "Skincare",
                         description = "This Hydrating Facial Moisturizer is expertly formulated to deeply nourish and hydrate your skin, providing lasting moisture and a smooth, radiant complexion. Ideal for daily use.",
+                        imageUrl = null,
                         onAddClick = {}
                     )
                 }

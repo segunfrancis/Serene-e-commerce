@@ -2,13 +2,12 @@ package com.assessment.sereneecommerce.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material.icons.outlined.ShoppingCart
+import androidx.compose.material.icons.outlined.ShoppingBag
+import androidx.compose.material.icons.outlined.Storefront
 import androidx.compose.ui.graphics.vector.ImageVector
 
 sealed class Screen(
@@ -20,15 +19,15 @@ sealed class Screen(
     object Home : Screen(
         route = "home",
         label = "Shop",
-        selectedIcon = Icons.Filled.Home,
+        selectedIcon = Icons.Outlined.Storefront,
         unselectedIcon = Icons.Outlined.Home
     )
 
     object Cart : Screen(
         route = "cart",
         label = "Cart",
-        selectedIcon = Icons.Filled.ShoppingCart,
-        unselectedIcon = Icons.Outlined.ShoppingCart
+        selectedIcon = Icons.Outlined.ShoppingBag,
+        unselectedIcon = Icons.Outlined.ShoppingBag
     )
 
     object Favorites : Screen(
@@ -46,14 +45,12 @@ sealed class Screen(
     )
 
     object Detail : Screen(
-        route = "detail",
-        label = "Detail"
-    )
+        route = "detail/{productJson}", label = "Detail"
+    ) {
+        fun createRoute(productJson: String) = "detail/$productJson"
+    }
 }
 
 val bottomNavItems = listOf(
-    Screen.Home,
-    Screen.Cart,
-    Screen.Favorites,
-    Screen.Profile
+    Screen.Home, Screen.Cart, Screen.Favorites, Screen.Profile
 )

@@ -26,17 +26,15 @@ class HomeViewModel(private val repository: ProductRepository) : ViewModel() {
         fetchProducts()
     }
 
-    private fun fetchProducts() {
+    fun fetchProducts() {
         viewModelScope.launch {
             _uiState.value = HomeUiState.Loading
-            repository.getProducts()
-                .onSuccess { products ->
+            repository.getProducts().onSuccess { products ->
                     Log.d("HomeViewModel", "Successfully fetched $products")
                     val categories = products.map { it.category }.distinct().toMutableList()
                     categories.add(0, "All")
                     _uiState.value = HomeUiState.Success(products, categories)
-                }
-                .onFailure { exception ->
+                }.onFailure { exception ->
                     Log.e("HomeViewModel", "Error fetching products", exception)
                     _uiState.value = HomeUiState.Error(exception.message ?: "Unknown error")
                 }

@@ -1,5 +1,6 @@
 package com.assessment.sereneecommerce.di
 
+import android.content.Context
 import com.assessment.sereneecommerce.data.remote.ProductApiService
 import com.assessment.sereneecommerce.data.repository.ProductRepository
 import kotlinx.serialization.json.Json
@@ -16,20 +17,22 @@ object ServiceLocator {
         coerceInputValues = true
     }
 
-    private val okHttpClient = OkHttpClient.Builder()
-        .build()
+    private val okHttpClient = OkHttpClient.Builder().build()
 
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL)
-        .client(okHttpClient)
-        .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
-        .build()
+    private val retrofit = Retrofit.Builder().baseUrl(BASE_URL).client(okHttpClient)
+        .addConverterFactory(json.asConverterFactory("application/json".toMediaType())).build()
 
     private val apiService: ProductApiService by lazy {
         retrofit.create(ProductApiService::class.java)
     }
 
+    private lateinit var appContext: Context
+
+    fun init(context: Context) {
+        appContext = context.applicationContext
+    }
+
     val productRepository: ProductRepository by lazy {
-        ProductRepository(apiService)
+        ProductRepository(apiService, appContext)
     }
 }
